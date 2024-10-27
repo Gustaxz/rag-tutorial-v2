@@ -12,6 +12,12 @@ CHROMA_PATH = "chroma"
 DATA_PATH = "data"
 
 
+def popuiate_database():
+    # Create (or update) the data store.
+    documents = load_documents()
+    chunks = split_documents(documents)
+    add_to_chroma(chunks)
+    
 def main():
 
     # Check if the database should be cleared (using the --clear flag).
@@ -21,11 +27,11 @@ def main():
     if args.reset:
         print("✨ Clearing Database")
         clear_database()
+        
+    # Populate the database.
+    popuiate_database()
 
-    # Create (or update) the data store.
-    documents = load_documents()
-    chunks = split_documents(documents)
-    add_to_chroma(chunks)
+    
 
 
 def load_documents():
